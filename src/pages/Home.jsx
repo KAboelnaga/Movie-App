@@ -9,7 +9,7 @@ export default function Home(){
     console.log(axiosInstance,import.meta.env.VITE_API_KEY);
     
     useEffect(() =>{
-        axiosInstance.get(`/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&page=${page}`)
+        axiosInstance.get(`/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&limit=12`)
         .then(response => setMovies(Array.isArray(response.data?.results) ? response.data.results : []))
         .catch(error => console.log(error))
     },[page]);
