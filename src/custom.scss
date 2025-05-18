@@ -1,0 +1,17 @@
+@import "bootstrap/scss/functions";
+
+$custom-colors: (
+  "yellow": #FFE353,
+  "light2": #F3F1F1,
+);
+
+@import "bootstrap/scss/variables";
+$theme-colors: map-merge($theme-colors,$custom-colors);
+@import "bootstrap/scss/bootstrap";
+
+
+#search:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}

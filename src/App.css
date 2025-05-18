@@ -1,0 +1,16 @@
+#root {
+  margin: 0;
+  font-family: 'Inter';
+}
+.inter-500{
+  font-family: 'Inter';
+  font-weight: 500;
+}
+.inter-600{
+  font-family: 'Inter';
+  font-weight: 600;
+}
+.inter-700{
+  font-family: 'Inter';
+  font-weight: 700;
+}
