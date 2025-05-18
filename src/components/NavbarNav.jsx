@@ -7,7 +7,6 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 export default function NavbarNav(){
     const favoriteItems = useSelector((state) => state.favorites.movies);
-    console.log(favoriteItems);
     const { language, setLanguage } = useContext(LanguageContext);
     const handleSelect = (lang) => {
         setLanguage(lang);

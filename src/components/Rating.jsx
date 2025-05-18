@@ -3,15 +3,15 @@ export default function Rating({fullStars, halfStars, emptyStars}){
         <>
         {
             Array(fullStars).fill().map((__, i) =>(
-                <i class="bi bi-star-fill me-1" key={`full-${i}`}></i>
+                <i className="bi bi-star-fill me-1" key={`full-${i}`}></i>
             ))
         }
         {
-            halfStars === 1 && <i class="bi bi-star-half me-1"></i>
+            halfStars === 1 && <i className="bi bi-star-half me-1"></i>
         }
         {
             Array(emptyStars).fill().map((__, i) => (
-                <i class="bi bi-star me-1" key={`empty-${i}`}></i>
+                <i className="bi bi-star me-1" key={`empty-${i}`}></i>
             ))
         }
         </>

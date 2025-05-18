@@ -2,11 +2,9 @@ import Title from "../components/Title";
 import axiosInstance from "../apis/config";
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
-// import CircularRating from "../components/CircularRating";
 export default function Home(){
     const page = 1;
     const [movies, setMovies] = useState([]);
-    console.log(axiosInstance,import.meta.env.VITE_API_KEY);
     
     useEffect(() =>{
         axiosInstance.get(`/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&limit=12`)

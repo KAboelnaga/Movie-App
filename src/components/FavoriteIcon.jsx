@@ -2,7 +2,6 @@ import { toggleFavorites } from "./store/slices/favorites";
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function FavoriteIcon({movie, id}){
-    console.log(movie);
     const dispatch = useDispatch();
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const handleFavorites = () => {
