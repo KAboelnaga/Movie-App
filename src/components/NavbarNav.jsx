@@ -23,7 +23,8 @@ export default function NavbarNav(){
             </NavDropdown>
             <span className="nav-item align-items-center">
                 <Link className="nav-link me-3 p-0" to="/watchlist">
-                    <button className="btn border-0"><i className="bi bi-heart-fill fs-3">{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</i> Watchlist</button>
+                    <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i> Watchlist</button>
+                    <span className="d-inline-flex align-items-start me-3" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
                 </Link>
             </span>
             </Nav>

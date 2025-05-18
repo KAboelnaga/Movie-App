@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import CardImage from '../components/CardImage';
 import Rating from '../components/Rating';
 import MovieCard from '../components/MovieCard';
+import FavoriteIcon from '../components/FavoriteIcon';
 
 export default function MovieDetails(){
     const [movie, setmovie] = useState(null);
@@ -41,12 +42,15 @@ export default function MovieDetails(){
         console.log(recommendation);
     return(
         <>
-            <div className="row">
-                <div className="col-12 col-lg-2 m-3">
+            <div className="row m-3">
+                <div className="col-10 col-lg-2 m-3">
                     <CardImage poster_path={movie.poster_path}/>
                 </div>
-                <div className="col-8 mt-3">
-                    <h1 className="inter-700">{movie.title}</h1>
+                <div className="col-10 col-lg-8 mt-3 ms-3">
+                    <div className='d-flex w-100 justify-content-between'>
+                        <h1 className="inter-700 d-inline">{movie.title}</h1>
+                        <FavoriteIcon movie={movie} id={movie.id}/>
+                    </div>
                     <p className="text-muted" style={{fontSize:'12px'}}>{movie.release_date}</p>
                     <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />
                     <span className="ms-3 ">{movie.vote_count}</span>
@@ -79,8 +83,8 @@ export default function MovieDetails(){
                         }
                     </div>
                 </div>
-                <h2 className='ms-3 inter-700'>Recommendations</h2>
-                <div className="row row-cols-2 g-4 vw-100">
+                <h2 className='inter-700 px-3'>Recommendations</h2>
+                <div className="row row-cols-2 g-4">
                         {
                     recommendation?.slice(0,6).map((rec) => (
                         <MovieCard movie={rec} key={rec.id}/>
