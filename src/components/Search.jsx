@@ -1,10 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router";
 
-export default function Search(){
+export default function Search({searchValue}){
     const [search,setSearch] = useState('');
+    const navigate = useNavigate();
     const handleSearch = () =>{
-        console.log('searching', search);
+        setSearch(`${search}`);
+        navigate(`/search/${search}`);
     }
+    useEffect(() => {
+        if(searchValue){
+            setSearch(searchValue);
+        }
+    },[]);
+
     const handleChange = (event) =>{
         setSearch(event.target.value);
         console.log(search);
