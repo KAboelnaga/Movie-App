@@ -8,12 +8,16 @@ import { CategoryContext } from "../context/CategoryContext";
 export default function Home(){
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
     const {language} = useContext(LanguageContext);
     const {category} = useContext(CategoryContext);
     console.log(category);
     useEffect(() =>{
         axiosInstance.get(`${category === 'movies' ? '/movie/now_playing?':'tv/popular?'}api_key=${import.meta.env.VITE_API_KEY}&language=${language}&page=${page}`)
-        .then(response => setMovies(Array.isArray(response.data?.results) ? response.data.results : []))
+        .then(response => {
+            setMovies(Array.isArray(response.data?.results) ? response.data.results : [])
+            setTotalPages(response.data.total_pages);
+        })
         .catch(error => console.log(error))
     },[page,language,category]);
     const topOfPage = () => {
@@ -49,7 +53,7 @@ export default function Home(){
             {[...Array(5)].map((__, i) =>{
                 const current = page + i;
                 return(
-                    <PageIcon current={current} page={page} changePage={changePage} key={i}/>
+                    <PageIcon current={current} page={page} totalPages={totalPages} changePage={changePage} key={i}/>
                 )
             }
             )}

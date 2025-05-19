@@ -18,7 +18,6 @@ export default function Search({searchValue}){
 
     const handleChange = (event) =>{
         setSearch(event.target.value);
-        console.log(search);
     }
     return(
         <div className="d-flex align-items-center mx-5 pb-5 ">

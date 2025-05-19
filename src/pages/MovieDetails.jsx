@@ -59,7 +59,7 @@ export default function MovieDetails(){
                     <p className='mt-4'>{movie.overview}</p>
                     {
                     movie?.genres?.map((genre) => (
-                        <span className='bg-yellow rounded-4 me-4 p-2' key={genre.id}>
+                        <span className='bg-yellow rounded-4 me-4 p-2 px-4' key={genre.id}>
                             {genre.name}
                         </span>
                         
