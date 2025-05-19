@@ -1,19 +1,26 @@
 import { toggleFavorites } from "./store/slices/favorites";
 import { useSelector, useDispatch } from 'react-redux';
+import { CategoryContext } from "../context/CategoryContext";
 
-export default function FavoriteIcon({movie, id}){
+export default function FavoriteIcon({movie, id, category}){
     const dispatch = useDispatch();
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const handleFavorites = () => {
-        const favIcon = document.getElementById(`favicon${id}`);
-        favIcon.classList.toggle('bi-heart-fill');
-        favIcon.classList.toggle('bi-heart');
-        dispatch(toggleFavorites({id : parseInt(id), poster_path: movie.poster_path, title: movie.title, release_date: movie.release_date, vote_average: movie.vote_average, vote_count: movie.vote_count, overview: movie.overview}));
+        dispatch(toggleFavorites({id : parseInt(id), 
+            poster_path: movie.poster_path, 
+            title: category === 'movies' ? movie.title : movie.name, 
+            release_date: category === 'movies' ? movie.release_date: movie.first_air_time, 
+            vote_average: movie.vote_average, 
+            vote_count: movie.vote_count, 
+            overview: movie.overview,
+            isMovie: category === 'movies' ? true : false
+        }));
+
 
     }
     return(
     <>
-        <button className="btn btn-outline-yellow fs-5 border-0 mt-2" style={{width:'50px',height:'50px'}} onClick={handleFavorites}><i className={`bi ${favoriteItems[id]?'bi-heart-fill':'bi-heart'}`} id={`favicon${id}`}></i></button>
+        <button id={`favIconButton${id}`} className="btn fs-5 border-0 mt-2" style={{width:'50px',height:'50px'}} onClick={handleFavorites}><i className={`bi ${favoriteItems[id]?'text-yellow bi-heart-fill':'bi-heart'}`} id={`favicon${id}`}></i></button>
     </>
     )
 }

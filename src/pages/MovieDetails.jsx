@@ -7,18 +7,19 @@ import MovieCard from '../components/MovieCard';
 import FavoriteIcon from '../components/FavoriteIcon';
 import {LanguageContext} from '../context/LanguageContext';
 
+
 export default function MovieDetails(){
     const [movie, setmovie] = useState(null);
     const [recommendation, setRecommendation] = useState(null);
     const [fullStars, setFullStars] = useState(0);
     const [halfStars, setHalfStars] = useState(0);
     const [emptyStars, setEmptyStars] = useState(5);
-    const { id } = useParams();
+    const { id, category } = useParams();
     const {language} = useContext(LanguageContext);
     useEffect(() => {
         Promise.all([
-        axiosInstance.get(`/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`),
-        axiosInstance.get(`/movie/${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`)
+        axiosInstance.get(`${category === 'movies' ?'/movie/':'/tv/'}${id}?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`),
+        axiosInstance.get(`${category === 'movies' ?'/movie/':'/tv/'}${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`)
         ])
         .then(([movie, recommendation]) => {
             setmovie(movie.data);
@@ -26,7 +27,7 @@ export default function MovieDetails(){
             }
             )
         .catch(error => console.log(error))
-    }, [id, language]);
+    }, [id, language, category]);
 
     useEffect(() => {
         if (movie && movie.vote_average !== undefined) {
@@ -49,8 +50,8 @@ export default function MovieDetails(){
                 </div>
                 <div className="col-10 col-lg-8 mt-3 ms-3">
                     <div className='d-flex w-100 justify-content-between'>
-                        <h1 className="inter-700 d-inline">{movie.title}</h1>
-                        <FavoriteIcon movie={movie} id={movie.id}/>
+                        <h1 className="inter-700 d-inline">{category === 'movies' ? movie.title : movie.name}</h1>
+                        <FavoriteIcon movie={movie} category={category} id={movie.id}/>
                     </div>
                     <p className="text-muted" style={{fontSize:'12px'}}>{movie.release_date}</p>
                     <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />
@@ -121,7 +122,7 @@ export default function MovieDetails(){
                 <div className="row row-cols-2 g-4">
                         {
                     recommendation?.slice(0,6).map((rec) => (
-                        <MovieCard movie={rec} key={rec.id}/>
+                        <MovieCard movie={rec} category={category} key={rec.id}/>
                     ))
                 }
                 </div>

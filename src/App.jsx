@@ -11,6 +11,8 @@ import { lazy, Suspense } from 'react';
 import Watchlist from './pages/Watchlist';
 import MovieDetails from './pages/MovieDetails';
 import SearchPage from './pages/SearchPage';
+
+
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -24,7 +26,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/watchlist' element={<Watchlist/>}/>
-          <Route path='/moviedetails/:id' element={<MovieDetails/>}/>
+          <Route path='/moviedetails/:id/:category' element={<MovieDetails/>}/>
           <Route path='/search/:search' element={<SearchPage/>}/>
           <Route path='/*' element={<NotFound/>}/>
         </Routes>

@@ -6,7 +6,8 @@ import { LanguageContext } from "../context/LanguageContext";
 export default function Watchlist() {
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const {language} = useContext(LanguageContext);
-
+    const movieItems = Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === true);
+    const tvItems = Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === false);
     return (
         <>
             <div className="min-vh-100">
@@ -15,12 +16,27 @@ export default function Watchlist() {
                 {language === 'fr' && <h2 className="inter-600 mx-5 py-4">Liste de surveillance</h2>}
                 {language === 'zh' && <h2 className="inter-600 mx-5 py-4">观看列表</h2>}
                 {   
-                    Object.keys(favoriteItems).length > 0 &&
-                    <div className="row row-cols-2 g-5 mx-5">
-                        {Object.entries(favoriteItems).map(([key, movie]) => (
-                            <WatchlistCard movie={movie} key={key} id={key}/>
-                        ))}
-                    </div>
+                    Object.keys(movieItems).length > 0 &&
+                    <>
+                        <h2 className="px-5 py-3 inter-500">Movies</h2>
+                        <div className="row row-cols-2 g-5 mx-5">
+                            {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === true).map(([key, movie]) => (
+                                <WatchlistCard movie={movie} key={key} id={key}/>
+                            ))}
+                        </div>
+                    </>
+
+                }
+                {   
+                    Object.keys(tvItems).length > 0 &&
+                    <>
+                    <h2 className="mx-5 my-3 inter-500">TV shows</h2>
+                        <div className="row row-cols-2 g-5 mx-5">
+                            {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === false).map(([key, movie]) => (
+                                <WatchlistCard movie={movie} key={key} id={key}/>
+                            ))}
+                        </div>
+                    </>
 
                 }
                 {
