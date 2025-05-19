@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axiosInstance from '../apis/config'
 import { useParams } from 'react-router';
 import CardImage from '../components/CardImage';
 import Rating from '../components/Rating';
 import MovieCard from '../components/MovieCard';
 import FavoriteIcon from '../components/FavoriteIcon';
+import {LanguageContext} from '../context/LanguageContext';
 
 export default function MovieDetails(){
     const [movie, setmovie] = useState(null);
@@ -13,11 +14,11 @@ export default function MovieDetails(){
     const [halfStars, setHalfStars] = useState(0);
     const [emptyStars, setEmptyStars] = useState(5);
     const { id } = useParams();
-
+    const {language} = useContext(LanguageContext);
     useEffect(() => {
         Promise.all([
-        axiosInstance.get(`/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`),
-        axiosInstance.get(`/movie/${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}`)
+        axiosInstance.get(`/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`),
+        axiosInstance.get(`/movie/${id}/recommendations?api_key=${import.meta.env.VITE_API_KEY}&language=${language}`)
         ])
         .then(([movie, recommendation]) => {
             setmovie(movie.data);
@@ -25,7 +26,7 @@ export default function MovieDetails(){
             }
             )
         .catch(error => console.log(error))
-    }, [id]);
+    }, [id, language]);
 
     useEffect(() => {
         if (movie && movie.vote_average !== undefined) {
@@ -64,12 +65,41 @@ export default function MovieDetails(){
                     ))
                     }
                     <div className="d-block mt-3">
-                    <p className='d-inline inter-600'>Duration:</p>
-                    <span className='ms-3 inter-400 me-5'>{movie.runtime} Min.</span>
-                    <span className='d-inline inter-600 me-3'> Languages:</span>
+                    {language === 'en' && 
+                        <>                        
+                            <p className='d-inline inter-600'>Duration:</p>
+                            <span className='ms-3 inter-400 me-5'>{movie.runtime} Min.</span>
+                            <span className='d-inline inter-600 me-3'> Languages:</span>
+                        </>
+
+                    }
+                    {language === 'ar' && 
+                        <>                        
+                            <p className='d-inline inter-600'>المدة:</p>
+                            <span className='ms-3 inter-400 me-5'>{movie.runtime} دقيقة</span>
+                            <span className='d-inline inter-600 me-3'> اللغات:</span>
+                        </>
+
+                    }
+                    {language === 'fr' && 
+                        <>                        
+                            <p className='d-inline inter-600'>Durée: </p>
+                            <span className='ms-3 inter-400 me-5'>{movie.runtime} Min.</span>
+                            <span className='d-inline inter-600 me-3'> Langues: </span>
+                        </>
+
+                    }
+                    {language === 'zh' && 
+                        <>                        
+                            <p className='d-inline inter-600'>时长：</p>
+                            <span className='ms-3 inter-400 me-5'>{movie.runtime} 分钟</span>
+                            <span className='d-inline inter-600 me-3'> 语言：</span>
+                        </>
+
+                    }
                     {
                         movie?.spoken_languages?.map((language) =>(
-                            <span className='me-3 ' key={language.id}>
+                            <span className='me-3 ' key={language}>
                                 {language.name}
                             </span>
                         ))
@@ -83,7 +113,11 @@ export default function MovieDetails(){
                         }
                     </div>
                 </div>
-                <h2 className='inter-700 px-3'>Recommendations</h2>
+                {language === 'en' && <h2 className='inter-700 px-3'>Recommendations</h2>}
+                {language === 'ar' && <h2 className='inter-700 px-3'>توصيات</h2>}
+                {language === 'fr' && <h2 className='inter-700 px-3'>Recommandations</h2>}
+                {language === 'zh' && <h2 className='inter-700 px-3'>推荐</h2>}
+
                 <div className="row row-cols-2 g-4">
                         {
                     recommendation?.slice(0,6).map((rec) => (

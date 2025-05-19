@@ -1,16 +1,18 @@
 import Title from "../components/Title";
 import axiosInstance from "../apis/config";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
+import { LanguageContext } from "../context/LanguageContext";
 export default function Home(){
     const page = 1;
     const [movies, setMovies] = useState([]);
+    const {language} = useContext(LanguageContext);
     
     useEffect(() =>{
-        axiosInstance.get(`/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&limit=12`)
+        axiosInstance.get(`/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&language=${language}&page=${page}`)
         .then(response => setMovies(Array.isArray(response.data?.results) ? response.data.results : []))
         .catch(error => console.log(error))
-    },[page]);
+    },[language]);
     
     return(
         <>
