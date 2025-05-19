@@ -9,7 +9,7 @@ import '@fontsource/inter/700.css';
 import {BrowserRouter, Route, Routes} from 'react-router';
 import { lazy, Suspense } from 'react';
 import Watchlist from './pages/Watchlist';
-import MovieDetails from './pages/MovieDetails';
+import MovieDetailsPage from './pages/MovieDetailsPage';
 import SearchPage from './pages/SearchPage';
 
 
@@ -26,7 +26,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/watchlist' element={<Watchlist/>}/>
-          <Route path='/moviedetails/:id/:category' element={<MovieDetails/>}/>
+          <Route path='/moviedetails/:id/:category' element={<MovieDetailsPage/>}/>
           <Route path='/search/:search' element={<SearchPage/>}/>
           <Route path='/*' element={<NotFound/>}/>
         </Routes>
