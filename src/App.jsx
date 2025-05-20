@@ -13,7 +13,8 @@ import MovieDetailsPage from './pages/MovieDetailsPage';
 import SearchPage from './pages/SearchPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { loadFavorites } from './components/store/slices/favorites'
+import { loadFavorites } from './components/store/slices/favorites';
+
 
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
