@@ -3,6 +3,7 @@ import WatchlistCard from "../components/WatchlistCard";
 import { Link } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
+import watchListItems from "../components/JS/watchListItems";
 export default function Watchlist() {
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const {language} = useContext(LanguageContext);
@@ -11,10 +12,7 @@ export default function Watchlist() {
     return (
         <>
             <div className="min-vh-100">
-                {language === 'en' && <h2 className="inter-600 mx-5 py-4">Watch list</h2>}
-                {language === 'ar' && <h2 className="inter-600 mx-5 py-4">قائمة المشاهدة</h2>}
-                {language === 'fr' && <h2 className="inter-600 mx-5 py-4">Liste de surveillance</h2>}
-                {language === 'zh' && <h2 className="inter-600 mx-5 py-4">观看列表</h2>}
+                <h2 className="inter-600 mx-5 py-4">{watchListItems.title[language]}</h2>
                 {   
                     Object.keys(movieItems).length > 0 &&
                     <>
@@ -43,15 +41,10 @@ export default function Watchlist() {
                     Object.keys(favoriteItems).length === 0 &&
                     <div className="position-absolute top-50 start-50 translate-middle">
                         <div className="d-flex justify-content-center w-100" style={{fontSize:'15vw'}}><i className="bi bi-heartbreak-fill text-muted"></i></div>
-                        {language === 'en' && <h1 className="inter-500" >No Movies in watch list</h1>}
-                        {language === 'ar' && <h1 className="inter-500" >لا توجد أفلام في قائمة المشاهدة</h1>}
-                        {language === 'fr' && <h1 className="inter-500" >Aucun film dans la liste de surveillance</h1>}
-                        {language === 'zh' && <h1 className="inter-500" >观看列表中没有电影</h1>}
+                        <h1 className="inter-500" >{watchListItems.empty[language]}</h1>
+                        
                         <Link to='/'>
-                            {language === 'en' && <button className="btn btn-yellow w-100">Back to Home</button>}
-                            {language === 'ar' && <button className="btn btn-yellow w-100">العودة إلى الصفحة الرئيسية</button>}
-                            {language === 'fr' && <button className="btn btn-yellow w-100">Retour à l’accueil</button>}
-                            {language === 'zh' && <button className="btn btn-yellow w-100">返回主页</button>}
+                            <button className="btn btn-yellow w-100">{watchListItems.homeButton[language]}</button>
                         </Link>
                     </div>
                 }

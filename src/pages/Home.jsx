@@ -11,7 +11,6 @@ export default function Home(){
     const [totalPages, setTotalPages] = useState(1);
     const {language} = useContext(LanguageContext);
     const {category} = useContext(CategoryContext);
-    console.log(category);
     useEffect(() =>{
         axiosInstance.get(`${category === 'movies' ? '/movie/now_playing?':'tv/popular?'}api_key=${import.meta.env.VITE_API_KEY}&language=${language}&page=${page}`)
         .then(response => {

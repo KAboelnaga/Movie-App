@@ -1,47 +1,20 @@
-export default function MoviesDurationLanguage({language, runtime, spoken_languages}){
+import { useContext } from "react"
+import movieDurationItems from "./JS/movieDuration"
+import { LanguageContext } from "../context/LanguageContext"
+
+export default function MoviesDurationLanguage({runtime, spoken_languages}){
+    const { language = 'en' } = useContext(LanguageContext);
+    console.log(spoken_languages);
     return(
-        <>
-            <div className="d-block mt-3">
-                    {language === 'en' && 
-                        <>                        
-                            <p className='d-inline inter-600'>Duration:</p>
-                            <span className='ms-3 inter-400 me-5'>{runtime} Min.</span>
-                            <span className='d-inline inter-600 me-3'> Languages:</span>
-                        </>
-
-                    }
-                    {language === 'ar' && 
-                        <>                        
-                            <p className='d-inline inter-600'>المدة:</p>
-                            <span className='ms-3 inter-400 me-5'>{runtime} دقيقة</span>
-                            <span className='d-inline inter-600 me-3'> اللغات:</span>
-                        </>
-
-                    }
-                    {language === 'fr' && 
-                        <>                        
-                            <p className='d-inline inter-600'>Durée: </p>
-                            <span className='ms-3 inter-400 me-5'>{runtime} Min.</span>
-                            <span className='d-inline inter-600 me-3'> Langues: </span>
-                        </>
-
-                    }
-                    {language === 'zh' && 
-                        <>                        
-                            <p className='d-inline inter-600'>时长：</p>
-                            <span className='ms-3 inter-400 me-5'>{runtime} 分钟</span>
-                            <span className='d-inline inter-600 me-3'> 语言：</span>
-                        </>
-
-                    }
-                    {
-                        spoken_languages?.map((language) =>(
-                            <span className='me-3 ' key={language}>
-                                {language.name}
-                            </span>
-                        ))
-                    }
-                    </div>
-        </>
+        <div className="d-block py-3">                      
+            <p className='d-inline inter-600'>{movieDurationItems?.duration?.[language]}</p>
+            <span className='ms-3 inter-400 me-5'>{runtime} {movieDurationItems?.minutes?.[language]}</span>
+            <span className='d-inline inter-600 me-3'>{movieDurationItems?.languages?.[language]}</span>
+            {
+                spoken_languages?.map(lang => (
+                    <span className="mx-3" key={spoken_languages.indexOf(lang)}>{lang.name}</span>
+                ))
+            }
+        </div>
     )
 }

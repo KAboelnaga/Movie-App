@@ -27,14 +27,15 @@ export default function NavbarNav(){
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse>
             <div className="d-flex justify-content-between w-100">
-            {location.pathname === '/' &&
         <div className="d-flex justify-content-start align-items-center">
-            <Nav.Item onClick={() => changeCategory('movies')} className={`me-3 ${category === 'movies' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navMovies[language]}</Nav.Item>
+            {location.pathname === '/' &&
+            <>            
+                <Nav.Item onClick={() => changeCategory('movies')} className={`me-3 ${category === 'movies' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navMovies[language]}</Nav.Item>
+                <Nav.Item onClick={() => changeCategory('shows')} className={`me-3 ${category === 'shows' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navShows[language]}</Nav.Item>
+            </>
 
-
-            <Nav.Item onClick={() => changeCategory('shows')} className={`me-3 ${category === 'shows' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navShows[language]}</Nav.Item>
-        </div>
         }
+        </div>
             <Nav className="justify-content-end align-items-center">
                 <NavDropdown title={language} onSelect={handleSelect} className="inter-700 me-2">
                 <NavDropdown.Item eventKey="en" active={language === 'en'}>EN</NavDropdown.Item>
@@ -45,7 +46,7 @@ export default function NavbarNav(){
             <span className="nav-item align-items-center">
                 <Link className="nav-link me-3 p-0" to="/watchlist">
                     <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}</button>
-                    <span className="d-inline-flex align-items-start mx-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
+                    <span className="d-inline-flex align-items-start bg-white px-2 rounded-5 me-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
                 </Link>
             </span>
             </Nav>

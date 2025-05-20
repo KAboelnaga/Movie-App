@@ -4,11 +4,11 @@ import { useParams } from 'react-router';
 import MovieCard from '../components/MovieCard';
 import {LanguageContext} from '../context/LanguageContext';
 import MovieDetails from '../components/MovieDetails';
+import movieDetailsItems from '../components/JS/movieDetails';
 export default function MovieDetailsPage(){
     const [movie, setmovie] = useState(null);
     const [recommendation, setRecommendation] = useState(null);
     const { id, category } = useParams();
-    const [favoriteItems, setFavoriteItems] = useState();
     const {language} = useContext(LanguageContext);
     useEffect(() => {
         Promise.all([
@@ -18,31 +18,24 @@ export default function MovieDetailsPage(){
         .then(([movie, recommendation]) => {
             setmovie(movie.data);
             setRecommendation(recommendation.data.results);
-            console.log(movie.data.seasons);
+            console.log(movie.data);
             }
             )
         .catch(error => console.log(error))
     }, [id, language, category]);
-    useEffect(() => {
-        setFavoriteItems(JSON.parse(localStorage.getItem('favoriteItems')));
-        console.log(favoriteItems);
-    },[]);
 
 
     if(!movie)
         return(<h2>loading</h2>)
     return(
         <>
-            <MovieDetails movie={movie} category={category} language={language}/>
+            <MovieDetails movie={movie} category={category}/>
             {category === 'shows' && <h2 className='inter-600 mx-5'>Seasons</h2>}
             { category=== 'shows' && movie?.seasons?.map(season => (
-                <MovieDetails movie={season} category='season' language={language} key={movie.seasons.indexOf(season)}/>
+                <MovieDetails movie={season} category='season' key={movie.seasons.indexOf(season)}/>
             ))}
                     
-                {language === 'en' && <h2 className='inter-700 px-3 mx-3 my-3'>Recommendations</h2>}
-                {language === 'ar' && <h2 className='inter-700 px-3'>توصيات</h2>}
-                {language === 'fr' && <h2 className='inter-700 px-3'>Recommandations</h2>}
-                {language === 'zh' && <h2 className='inter-700 px-3'>推荐</h2>}
+                <h2 className='inter-700 px-3 mx-3 my-3'>{movieDetailsItems.recommendations[language]}</h2>
 
                 <div className="mx-3 row row-cols-2 g-4">
                         {

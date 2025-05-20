@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CardImage from "./CardImage";
 import Rating from "./Rating";
 import MoviesDurationLanguage from "./MovieDurationLanguages";
 import FavoriteIcon from "./FavoriteIcon";
-export default function MovieDetails({movie, category, language}){
+import showSeasonItems from "./JS/showSeasonsItems";
+import { LanguageContext } from "../context/LanguageContext";
+export default function MovieDetails({movie, category}){
+    const {language} = useContext(LanguageContext);
     const [fullStars, setFullStars] = useState(0);
     const [halfStars, setHalfStars] = useState(0);
     const [emptyStars, setEmptyStars] = useState(5);
@@ -32,31 +35,45 @@ export default function MovieDetails({movie, category, language}){
 
                 {category === 'movies' && <p className="text-muted" style={{fontSize:'12px'}}>{movie.release_date}</p>}
                 {category === 'shows' && <p className="text-muted" style={{fontSize:'12px'}}>{(movie.first_air_date).split('-',1)} - {(movie.last_air_date)?.split('-',1)}</p>}
-                {category === 'season' && <p className="text-muted" style={{fontSize:'12px'}}>{(movie.air_date).split('-',1)}</p>}
+                {category === 'season' && <p className="text-muted" style={{fontSize:'12px'}}>First Air Date: {(movie.air_date)}</p>}
 
-                {movie.vote_average > 0 && <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />}
-                <br />
-                {
-                category === 'season' && movie.season_number > 0 && <h6 className="mt-3 d-inline-block inter-700 p-2 bg-light2 rounded-3">Episodes <span className="inter-400 fs-6">{movie.episode_count}</span></h6>
+                {movie.vote_average > 0 && 
+                    <>
+                        <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />
+                        <span className="mx-3 ">{movie.vote_count}</span>
+                    </>
                 }
-                <span className="ms-3 ">{movie.vote_count}</span>
-                <p className='mt-4'>{movie.overview}</p>
+
+                {
+                (category === 'shows' && movie.number_of_seasons > 0) &&
+                (
+                    <h6 className="mt-3 fs-5 inter-700 p-2">{showSeasonItems.seasons[language]} 
+                        <span className="inter-400 fs-6 me-5">{movie.number_of_seasons}</span>
+                    
+                    <span className="mt-3 inter-700 p-2">{showSeasonItems.episodes[language]}
+                        <span className="inter-400 fs-6">{movie.number_of_episodes}</span>
+                    </span>
+                    </h6>
+                )
+                }
+                {
+                    category === 'movies' &&
+                    <MoviesDurationLanguage runtime={movie.runtime} spoken_languages={movie.spoken_languages}/>
+                }
+                
 
 
                 {
                     movie?.genres?.map((genre) => (
-                        <span className='position-relative bg-yellow rounded-4 me-4 p-2 px-4' key={genre.id}>
+                        <span className='position-relative bg-yellow rounded-4 me-4 my-4 p-2 px-4' key={genre.id}>
                             {genre.name}
                         </span>
                         
                     ))
                 }
-                    {
-                        category === 'movies' &&
-                        <MoviesDurationLanguage language={language} runtime={movie.runtime} spoken_languages={movie.spoken_languages}/>
-                    }
+                <p className='mt-4'>{movie.overview}</p>
                     <div className="my-3">
-                        {category !== 'season' && <h5 className='pt-3 inter-400'>Produced By:</h5>}
+                        {category !== 'season' && <h5 className='pt-3 inter-400'>{showSeasonItems.producedBy[language]}</h5>}
                         {
                             movie?.production_companies?.map((company) =>(
                                 <img src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${company.logo_path}`} className="card-img-fluid rounded-1 me-5 my-3" alt={company.name} key={company.id} style={{width: '200px'}}/>

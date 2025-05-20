@@ -67,7 +67,7 @@ export default function SearchPage(){
     
     
     return(
-        <div className="py-5">
+        <div className="py-5 min-vh-100">
             <Search searchValue={`${search}`}/>
             <div className="mb-4 ms-5">
                 <h4 className="inter-600 d-inline me-3">Search results for: </h4> <span>{search}</span>
