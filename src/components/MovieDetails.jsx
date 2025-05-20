@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CardImage from "./CardImage";
 import Rating from "./Rating";
 import MoviesDurationLanguage from "./MovieDurationLanguages";
-import ShowSeasons from "./ShowSeasons";
+import FavoriteIcon from "./FavoriteIcon";
 export default function MovieDetails({movie, category, language}){
     const [fullStars, setFullStars] = useState(0);
     const [halfStars, setHalfStars] = useState(0);
@@ -27,15 +27,22 @@ export default function MovieDetails({movie, category, language}){
             <div className="col-10 col-lg-8 mt-3 ms-3">
                 <div className='d-flex w-100 justify-content-between'>
                     <h1 className="inter-700 d-inline">{category === 'movies' ? movie.title : movie.name}</h1>
-                    {/* <FavoriteIcon movie={movie} category={category} id={movie.id}/> */}
+                    {(category === 'shows' || category === 'movies') && (<FavoriteIcon movie={movie} category={category} id={movie.id}/>)}
                 </div>
 
                 {category === 'movies' && <p className="text-muted" style={{fontSize:'12px'}}>{movie.release_date}</p>}
                 {category === 'shows' && <p className="text-muted" style={{fontSize:'12px'}}>{(movie.first_air_date).split('-',1)} - {(movie.last_air_date)?.split('-',1)}</p>}
+                {category === 'season' && <p className="text-muted" style={{fontSize:'12px'}}>{(movie.air_date).split('-',1)}</p>}
 
-                <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />
+                {movie.vote_average > 0 && <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />}
+                <br />
+                {
+                category === 'season' && movie.season_number > 0 && <h6 className="mt-3 d-inline-block inter-700 p-2 bg-light2 rounded-3">Episodes <span className="inter-400 fs-6">{movie.episode_count}</span></h6>
+                }
                 <span className="ms-3 ">{movie.vote_count}</span>
                 <p className='mt-4'>{movie.overview}</p>
+
+
                 {
                     movie?.genres?.map((genre) => (
                         <span className='position-relative bg-yellow rounded-4 me-4 p-2 px-4' key={genre.id}>
@@ -43,7 +50,7 @@ export default function MovieDetails({movie, category, language}){
                         </span>
                         
                     ))
-                    }
+                }
                     {
                         category === 'movies' &&
                         <MoviesDurationLanguage language={language} runtime={movie.runtime} spoken_languages={movie.spoken_languages}/>

@@ -1,18 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import axiosInstance from '../apis/config'
 import { useParams } from 'react-router';
-import CardImage from '../components/CardImage';
-import Rating from '../components/Rating';
 import MovieCard from '../components/MovieCard';
-import FavoriteIcon from '../components/FavoriteIcon';
 import {LanguageContext} from '../context/LanguageContext';
-import MoviesDurationLanguage from '../components/MovieDurationLanguages';
-import ShowSeasons from '../components/ShowSeasons';
 import MovieDetails from '../components/MovieDetails';
 export default function MovieDetailsPage(){
     const [movie, setmovie] = useState(null);
     const [recommendation, setRecommendation] = useState(null);
     const { id, category } = useParams();
+    const [favoriteItems, setFavoriteItems] = useState();
     const {language} = useContext(LanguageContext);
     useEffect(() => {
         Promise.all([
@@ -27,15 +23,19 @@ export default function MovieDetailsPage(){
             )
         .catch(error => console.log(error))
     }, [id, language, category]);
+    useEffect(() => {
+        setFavoriteItems(JSON.parse(localStorage.getItem('favoriteItems')));
+        console.log(favoriteItems);
+    },[]);
 
 
     if(!movie)
         return(<h2>loading</h2>)
     return(
         <>
-            <MovieDetails movie={movie} category='shows' language={language}/>
-            <h2 className='inter-600 mx-5'>Seasons</h2>
-            {movie.seasons.map(season => (
+            <MovieDetails movie={movie} category={category} language={language}/>
+            {category === 'shows' && <h2 className='inter-600 mx-5'>Seasons</h2>}
+            { category=== 'shows' && movie?.seasons?.map(season => (
                 <MovieDetails movie={season} category='season' language={language} key={movie.seasons.indexOf(season)}/>
             ))}
                     

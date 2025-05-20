@@ -1,6 +1,5 @@
 import { toggleFavorites } from "./store/slices/favorites";
 import { useSelector, useDispatch } from 'react-redux';
-import { CategoryContext } from "../context/CategoryContext";
 
 export default function FavoriteIcon({movie, id, category}){
     const dispatch = useDispatch();
@@ -15,9 +14,10 @@ export default function FavoriteIcon({movie, id, category}){
             overview: movie.overview,
             isMovie: category === 'movies' ? true : false
         }));
-
-
+        
     }
+
+
     return(
     <>
         <button id={`favIconButton${id}`} className="btn fs-5 border-0 mt-2" style={{width:'50px',height:'50px'}} onClick={handleFavorites}><i className={`bi ${favoriteItems[id]?'text-yellow bi-heart-fill':'bi-heart'}`} id={`favicon${id}`}></i></button>

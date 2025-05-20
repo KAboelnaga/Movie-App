@@ -2,7 +2,7 @@ import CardImage from "./CardImage";
 import FavoriteIcon from "./FavoriteIcon";
 import Rating from "./Rating";
 import { Link, useNavigate } from "react-router";
-export default function WatchlistCard({movie,id}){
+export default function WatchlistCard({movie,id, category}){
     console.log(movie);
     const navigate = useNavigate();
     const fullStars = parseInt(Math.floor(movie.vote_average/2));
@@ -26,7 +26,7 @@ export default function WatchlistCard({movie,id}){
                     <h6 className="inter-700 fs-1">{movie.title}</h6>
                 </Link>
                     <span className="me-3">
-                        <FavoriteIcon movie={movie} id={id}/>
+                        <FavoriteIcon movie={movie} id={id} category={category}/>
                     </span>
                 </div>
                 <div className="d-inline">

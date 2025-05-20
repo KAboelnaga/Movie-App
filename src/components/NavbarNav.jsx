@@ -6,6 +6,7 @@ import { LanguageContext } from '../context/LanguageContext'
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { CategoryContext } from "../context/CategoryContext";
+import navbar from "./JS/navbar";
 export default function NavbarNav(){
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const { language, setLanguage } = useContext(LanguageContext);
@@ -19,20 +20,22 @@ export default function NavbarNav(){
         
     }
     return(<>
-        <Navbar expand="md" className="bg-yellow">
-        {language == 'en' && <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">Movie App</Navbar.Brand>}
-        {language == 'ar' && <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">تطبيق الأفلام</Navbar.Brand>}
-        {language == 'fr' && <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">application de film</Navbar.Brand>}
-        {language == 'zh' && <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">电影应用程序</Navbar.Brand>}
-        {location.pathname === '/' &&
-        <>
-            <Nav.Item onClick={() => changeCategory('movies')} className={`me-3 ${category === 'movies' ? 'inter-600' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>Movies</Nav.Item>
-            <Nav.Item onClick={() => changeCategory('shows')} className={`me-3 ${category === 'shows' ? 'inter-600' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>Shows</Nav.Item>
-        </>
-        }
+        <Navbar expand="md" className="bg-yellow d-flex">
+        <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">{navbar.navTitle[language]}</Navbar.Brand>
+
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse className="justify-content-end align-items-center">
-            <Nav className="align-items-center">
+        <Navbar.Collapse>
+            <div className="d-flex justify-content-between w-100">
+            {location.pathname === '/' &&
+        <div className="d-flex justify-content-start align-items-center">
+            <Nav.Item onClick={() => changeCategory('movies')} className={`me-3 ${category === 'movies' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navMovies[language]}</Nav.Item>
+
+
+            <Nav.Item onClick={() => changeCategory('shows')} className={`me-3 ${category === 'shows' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navShows[language]}</Nav.Item>
+        </div>
+        }
+            <Nav className="justify-content-end align-items-center">
                 <NavDropdown title={language} onSelect={handleSelect} className="inter-700 me-2">
                 <NavDropdown.Item eventKey="en" active={language === 'en'}>EN</NavDropdown.Item>
                 <NavDropdown.Item eventKey="ar"active={language === 'ar'}>AR</NavDropdown.Item>
@@ -41,16 +44,12 @@ export default function NavbarNav(){
             </NavDropdown>
             <span className="nav-item align-items-center">
                 <Link className="nav-link me-3 p-0" to="/watchlist">
-
-                    {language == 'en' && <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i> Watchlist</button>}
-                    {language == 'ar' && <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>قائمة المشاهدة</button>}
-                    {language == 'fr' && <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>Liste de surveillance</button>}
-                    {language == 'zh' && <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>观看列表</button>}
-
+                    <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}</button>
                     <span className="d-inline-flex align-items-start mx-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
                 </Link>
             </span>
             </Nav>
+            </div>
         </Navbar.Collapse>
     </Navbar>
     </>

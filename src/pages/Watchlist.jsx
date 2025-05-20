@@ -21,7 +21,7 @@ export default function Watchlist() {
                         <h2 className="px-5 py-3 inter-500">Movies</h2>
                         <div className="row row-cols-2 g-5 mx-5">
                             {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === true).map(([key, movie]) => (
-                                <WatchlistCard movie={movie} key={key} id={key}/>
+                                <WatchlistCard movie={movie} key={key} category={'movies'} id={key}/>
                             ))}
                         </div>
                     </>
@@ -33,7 +33,7 @@ export default function Watchlist() {
                     <h2 className="mx-5 my-3 inter-500">TV shows</h2>
                         <div className="row row-cols-2 g-5 mx-5">
                             {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === false).map(([key, movie]) => (
-                                <WatchlistCard movie={movie} key={key} id={key}/>
+                                <WatchlistCard movie={movie} key={key} category={'shows'} id={key}/>
                             ))}
                         </div>
                     </>

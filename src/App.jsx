@@ -11,7 +11,9 @@ import { lazy, Suspense } from 'react';
 import Watchlist from './pages/Watchlist';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import SearchPage from './pages/SearchPage';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { loadFavorites } from './components/store/slices/favorites'
 
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
@@ -19,6 +21,18 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 
 function App() {
+  const dispatch = useDispatch();
+  const favoriteItems = useSelector((state) => state.favorites.movies);
+  const savedFavorites = JSON.parse(localStorage.getItem('favoriteItems'));
+  useEffect(() => {
+    if (savedFavorites) {
+      dispatch(loadFavorites(savedFavorites));
+    }
+
+  },[]);  
+        useEffect(() => {
+        localStorage.setItem('favoriteItems', JSON.stringify(favoriteItems));
+    },[favoriteItems]);
   return (
     <BrowserRouter>
     <NavbarNav/>

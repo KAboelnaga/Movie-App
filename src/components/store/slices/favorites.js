@@ -13,7 +13,10 @@ const favoritesSlice = createSlice({
       else
         state.movies[id] = {poster_path, title, release_date, vote_average, vote_count, overview, isMovie};
     },
+    loadFavorites: (state, action) => {
+      state.movies = action.payload || {};
+    }
   }
 });
-export const {toggleFavorites} = favoritesSlice.actions;
+export const {toggleFavorites, loadFavorites} = favoritesSlice.actions;
 export const favoritesReducer = favoritesSlice.reducer;
