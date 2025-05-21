@@ -3,7 +3,7 @@ import axiosInstance from "../apis/config";
 import Search from "../components/Search";
 import { useParams } from "react-router";
 import MovieCard from "../components/MovieCard";
-import PageIcon from "../components/PageIcon";
+import Pages from "../components/Pages";
 export default function SearchPage(){
     const [movies, setMovies] = useState([]);
     const [shows, setShows] = useState([]);
@@ -39,14 +39,7 @@ export default function SearchPage(){
         moveToMovieTitle();
 
     }
-    const prevMoviesPage = () => {
-        setMoviesPages(moviesPage - 1);
-        moveToMovieTitle();
-    }
-    const nextMoviesPage = () => {
-        setMoviesPages(moviesPage + 1);
-        moveToMovieTitle();
-    }
+
 
 
     const moveToShowTitle = () => {
@@ -56,14 +49,7 @@ export default function SearchPage(){
         setShowsPages(current);
         moveToShowTitle();
     }
-    const prevShowsPage = () => {
-        setShowsPages(showsPage - 1);
-        moveToShowTitle();
-    }
-    const nextShowsPage = () => {
-        setShowsPages(showsPage + 1);
-        moveToShowTitle();
-    }
+
     
     
     return(
@@ -79,17 +65,7 @@ export default function SearchPage(){
                     <MovieCard movie={result} category={'movies'} key={result.id} />
                 ))
             }
-            <div className="w-100 d-flex justify-content-center align-items-center py-3">
-                <button className={`btn px-3 mx-3 ${moviesPage === 1 ? 'disabled btn-dark' : 'btn-outline-dark'}`} onClick={prevMoviesPage}><i className="bi bi-chevron-left"></i></button>
-                {[...Array(5)].map((__, i) =>{
-                    const current = moviesPage + i;
-                    return(
-                        <PageIcon current={current} page={moviesPage} totalPages={moviesTotalPages} changePage={changeMoviesPage} key={i}/>
-                    )
-                }
-                )}
-                <button className={`btn px-3 mx-3 ${moviesPage === moviesTotalPages ? 'disabled btn-dark' : 'btn-outline-dark'}`} onClick={nextMoviesPage}><i className="bi bi-chevron-right"></i></button>
-            </div>
+            <Pages page={moviesPage} totalPages={moviesTotalPages} handlePageChange={changeMoviesPage}/>
             </div>
             <div className="row row-cols-2 g-4 mx-3">
                 <h4 ref={showsTitleRef} className="w-100 inter-500 py-3 px-5">TV Shows</h4>
@@ -98,17 +74,7 @@ export default function SearchPage(){
                     <MovieCard movie={result} category={'shows'} key={result.id} />
                 ))
             }
-            <div className="w-100 d-flex justify-content-center align-items-center py-3">
-                <button className={`btn px-3 mx-3 ${showsPage === 1 ? 'disabled btn-dark' : 'btn-outline-dark'}`} onClick={prevShowsPage}><i className="bi bi-chevron-left"></i></button>
-                {[...Array(5)].map((__, i) =>{
-                    const current = showsPage + i;
-                    return(
-                        <PageIcon current={current} page={showsPage} totalPages={showsTotalPages} changePage={changeShowsPage} key={i}/>
-                    )
-                }
-                )}
-                <button className={`btn px-3 mx-3 ${showsPage === showsTotalPages ? 'disabled btn-dark' : 'btn-outline-dark'}`} onClick={nextShowsPage}><i className="bi bi-chevron-right"></i></button>
-            </div>
+            <Pages page={showsPage} totalPages={showsTotalPages} handlePageChange={changeShowsPage}/>
             </div>
         </div>
     )

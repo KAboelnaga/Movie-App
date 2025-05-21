@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { CategoryContext } from "../context/CategoryContext";
 import navbar from "./JS/navbar";
+import ThemeToggle from "./ThemeToggle";
 export default function NavbarNav(){
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const { language, setLanguage } = useContext(LanguageContext);
@@ -20,7 +21,7 @@ export default function NavbarNav(){
         
     }
     return(<>
-        <Navbar expand="md" className="bg-yellow d-flex">
+        <Navbar expand="md" className="bg-yellow position-absolute top-0 w-100">
         <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">{navbar.navTitle[language]}</Navbar.Brand>
 
         
@@ -46,9 +47,10 @@ export default function NavbarNav(){
             <span className="nav-item align-items-center">
                 <Link className="nav-link me-3 p-0" to="/watchlist">
                     <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}</button>
-                    <span className="d-inline-flex align-items-start bg-white px-2 rounded-5 me-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
+                    <span className="d-inline-flex align-items-start bg-light2 px-2 rounded-5 me-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
                 </Link>
             </span>
+            <ThemeToggle />
             </Nav>
             </div>
         </Navbar.Collapse>

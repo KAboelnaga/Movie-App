@@ -14,7 +14,7 @@ import SearchPage from './pages/SearchPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loadFavorites } from './components/store/slices/favorites';
-
+import Loading from './pages/Loading';
 
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
@@ -37,7 +37,7 @@ function App() {
   return (
     <BrowserRouter>
     <NavbarNav/>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={<Loading/>}>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/watchlist' element={<Watchlist/>}/>

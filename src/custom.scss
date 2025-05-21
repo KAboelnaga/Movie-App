@@ -1,17 +1,40 @@
 @import "bootstrap/scss/functions";
 
-$custom-colors: (
-  "yellow": #FFE353,
-  "light2": #F3F1F1,
-);
+// $custom-colors: (
+//   "yellow": #FFE353,
+//   "light2": #F3F1F1,
+// );
 
 @import "bootstrap/scss/variables";
-$theme-colors: map-merge($theme-colors,$custom-colors);
+// $theme-colors: map-merge($theme-colors,$custom-colors);
 @import "bootstrap/scss/bootstrap";
 
 
-#search:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: transparent !important;
+:root,
+[data-bs-theme="light"] {
+  --bs-yellow: #FFE353;
+  --bs-light2: #F3F1F1;
 }
+
+[data-bs-theme="dark"] {
+  --bs-yellow: #BF3131	;   // Netflix red
+  --bs-light2: #2e2e2e;   // Greyish dark
+}
+
+// Example usage (wherever needed)
+.bg-yellow {
+  background-color: var(--bs-yellow) !important;
+}
+.text-yellow {
+  color: var(--bs-yellow) !important;
+}
+.btn-yellow {
+  background-color: var(--bs-yellow) !important;
+}
+.text-light2 {
+  color: var(--bs-light2) !important;
+}
+.bg-light2 {
+  background-color: var(--bs-light2) !important;
+}
+
