@@ -54,7 +54,16 @@ export default function NavbarNav() {
           </span>
         </button>
 
-        <Navbar.Collapse className="justify-content-between align-items-center w-100">
+        <Navbar.Collapse className="justify-content-between align-items-center w-100"  style={{
+        position: isActive ? 'fixed' : 'relative', // FIXED when open
+        top: isActive ? '56px' : 'auto',           // adjust if navbar height different
+        left: 0,
+        right: 0,
+        backgroundColor: 'var(--bs-yellow)',       // or your bg color
+        zIndex: 1099,
+        padding: isActive ? '1rem' : 0,
+        boxShadow: isActive ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
+      }}>
           <Nav className="d-lg-flex align-items-lg-center">
             {location.pathname === '/' && (
               <>

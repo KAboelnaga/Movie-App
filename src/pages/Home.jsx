@@ -32,7 +32,7 @@ export default function Home(){
     return(
         <div className="pt-4 mt-5 min-vh-100">
         <Title />
-        <h2 className="inter-700 py-5 mx-4">Now Playing</h2>
+        <h2 className="inter-700 my-3 mx-4">Now Playing</h2>
         <div className="row row-cols-2 g-4 mx-3">
             {movies.slice(0,18).map(movie => (
              <MovieCard movie={movie} category={category} key={movie.id}/>
