@@ -6,18 +6,18 @@ import FavoriteIcon from "./FavoriteIcon";
 export default function MovieCard({movie, category}){
     return(
         <>
-            <div className="d-flex flex-column col-16 col-md-6 justify-content-center col-lg-2" style={{height: '500px'}}>
-                <Link to={`/moviedetails/${movie.id}/${category}`} className="text-decoration-none text-reset">
+            <div className="col-6 col-md-6 col-lg-2">
+                <Link to={`/moviedetails/${movie.id}/${category}`} className="text-decoration-none text-reset" style={{height:'200px'}}>
                     <CardImage poster_path={movie.poster_path}/>
                 </Link>
-                {/* <CircularRating percentage={75} /> */}
                 <div className="d-flex justify-content-between">
-                    <div>
+                        <div>
+
                         <Link to={`/moviedetails/${movie.id}/${category}`} className="text-decoration-none text-reset">
                             <h5 className="card-title fs-bold">{category === 'movies' && movie.title}{category === 'shows' && movie.name}</h5>
-                        </Link>
                         <h6 className="text-muted">{category === 'movies' && movie.release_date}{category === 'shows' && movie.first_air_date}</h6>
-                    </div>
+                        </Link>
+                        </div>
                     <FavoriteIcon movie={movie} id={movie.id} category={category}/>
                 </div>
             </div>
