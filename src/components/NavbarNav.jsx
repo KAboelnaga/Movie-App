@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { LanguageContext } from '../context/LanguageContext'
 import { useContext } from "react";
 import { useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
 import { CategoryContext } from "../context/CategoryContext";
 import navbar from "./JS/navbar";
 import ThemeToggle from "./ThemeToggle";
@@ -21,14 +22,14 @@ export default function NavbarNav(){
         
     }
     return(<>
-        <Navbar expand="md" className="bg-yellow position-absolute top-0 w-100">
+        {/* <Navbar expand="md" className="bg-yellow position-absolute top-0 w-100">
         <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">{navbar.navTitle[language]}</Navbar.Brand>
 
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse>
+        <Navbar.Collapse id="basic-navbar-nav">
             <div className="d-flex justify-content-between w-100">
-        <div className="d-flex justify-content-start align-items-center">
+        <div className="d-flex flex-column flex-md-row  w-100 justify-content-start align-items-center">
             {location.pathname === '/' &&
             <>            
                 <Nav.Item onClick={() => changeCategory('movies')} className={`me-3 ${category === 'movies' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navMovies[language]}</Nav.Item>
@@ -44,8 +45,8 @@ export default function NavbarNav(){
                 <NavDropdown.Item eventKey="fr"active={language === 'fr'}>FR</NavDropdown.Item>
                 <NavDropdown.Item eventKey="zh"active={language === 'zh'}>ZH</NavDropdown.Item>
             </NavDropdown>
-            <span className="nav-item align-items-center">
-                <Link className="nav-link me-3 p-0" to="/watchlist">
+            <span className="nav-item align-items-center justify-content-end">
+                <Link className="nav-item me-3 p-0" to="/watchlist">
                     <button className="btn border-0"><i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}</button>
                     <span className="d-inline-flex align-items-start bg-light2 px-2 rounded-5 me-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
                 </Link>
@@ -53,6 +54,36 @@ export default function NavbarNav(){
             <ThemeToggle />
             </Nav>
             </div>
+        </Navbar.Collapse>
+    </Navbar> */}
+    <Navbar expand="md" className="bg-yellow position-absolute top-0 w-100">
+        <Navbar.Brand as={Link} to={'/'} className="mx-5 inter-700">{navbar.navTitle[language]}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse className="justify-content-between align-items-center w-100">
+            <Nav className="d-lg-align-items-center">
+                {location.pathname === '/' &&
+            <>            
+                <Nav.Item onClick={() => changeCategory('movies')} className={`mx-3 my-2 ${category === 'movies' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navMovies[language]}</Nav.Item>
+                <Nav.Item onClick={() => changeCategory('shows')} className={`mx-3 my-2 ${category === 'shows' ? 'inter-700 text-decoration-underline' : 'inter-400'}`}  style={{ cursor: 'pointer' }}>{navbar.navShows[language]}</Nav.Item>
+            </>
+
+        }
+            </Nav>
+            <Nav >
+                <NavDropdown title={language} onSelect={handleSelect} className="inter-700 mx-3 my-2 d-lg-align-items-center">
+                <NavDropdown.Item eventKey="en" active={language === 'en'}>EN</NavDropdown.Item>
+                <NavDropdown.Item eventKey="ar"active={language === 'ar'}>AR</NavDropdown.Item>
+                <NavDropdown.Item eventKey="fr"active={language === 'fr'}>FR</NavDropdown.Item>
+                <NavDropdown.Item eventKey="zh"active={language === 'zh'}>ZH</NavDropdown.Item>
+            </NavDropdown>
+            <span className="nav-item align-items-center justify-content-end">
+                <Link className="nav-item p-0" to="/watchlist">
+                    <button className="nav-item btn border-0"><i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}</button>
+                    <span className="d-inline-flex align-items-start bg-light2 px-2 rounded-5 me-1" style={{fontSize: '15px'}}>{Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}</span>
+                </Link>
+            </span>
+            <ThemeToggle />
+            </Nav>
         </Navbar.Collapse>
     </Navbar>
     </>

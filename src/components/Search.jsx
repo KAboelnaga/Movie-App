@@ -28,7 +28,7 @@ export default function Search({searchValue}){
     }
     return(
         <>
-        <div className="d-flex align-items-center py-3 mx-5">
+        <div className="d-flex align-items-center py-3 mx-5 mt-5">
             <input type="search" name="search" id="search" placeholder={searchItems.placeHolder[language]} value={search} className="bg-white text-black border-1 border-light2 rounded-2 me-3 ps-3" style={{height:'5vh', flexGrow: 1}} onChange={handleChange}/>  
             <button className="btn btn-yellow" onClick={handleSearch}>{searchItems.searchButton[language]}</button>
         </div>

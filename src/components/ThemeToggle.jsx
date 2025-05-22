@@ -6,10 +6,10 @@ export default function ThemeToggle() {
 
   return (
     <button
-      className="btn btn-transparent"
+      className="btn btn-transparent align-self-start"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
-      <i className={`bi ${theme === 'dark' ? 'bi-moon-fill' : 'bi bi-sun-fill'} mx-3 fs-3`}></i>
+      <i className={`bi ${theme === 'dark' ? 'bi-moon-fill' : 'bi bi-sun-fill'} me-lg-3 fs-3`}></i>
     </button>
   );
 }
