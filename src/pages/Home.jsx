@@ -39,7 +39,7 @@ export default function Home(){
             ))
             }
         </div>
-        <Pages page={page} totalPages={totalPages} handlePageChange={changePage}/>
+        <Pages start={page-2} page={page} totalPages={totalPages} handlePageChange={changePage}/>
         </div>
     )
 }

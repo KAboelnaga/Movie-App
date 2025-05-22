@@ -65,7 +65,7 @@ export default function SearchPage(){
                     <MovieCard movie={result} category={'movies'} key={result.id} />
                 ))
             }
-            <Pages page={moviesPage} totalPages={moviesTotalPages} handlePageChange={changeMoviesPage}/>
+            <Pages start={moviesPage - 2} page={moviesPage} totalPages={moviesTotalPages} handlePageChange={changeMoviesPage}/>
             </div>
             <div className="row row-cols-2 g-4 mx-3">
                 <h4 ref={showsTitleRef} className="w-100 inter-500 py-3 px-5">TV Shows</h4>
@@ -74,7 +74,7 @@ export default function SearchPage(){
                     <MovieCard movie={result} category={'shows'} key={result.id} />
                 ))
             }
-            <Pages page={showsPage} totalPages={showsTotalPages} handlePageChange={changeShowsPage}/>
+            <Pages start={showsPage - 2} page={showsPage} totalPages={showsTotalPages} handlePageChange={changeShowsPage}/>
             </div>
         </div>
     )
