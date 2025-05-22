@@ -6,9 +6,9 @@ export default function Title(){
     const {language} = useContext(LanguageContext);
     return(
         <>
-            <div className="bg-light2 pt-4 mx-4">
-                <h1 className="py-3 mx-5">{homeTitle.Title[language]}</h1>
-                <p className="mx-5 mb-2">{homeTitle.Subtitle[language]}</p>
+            <div className="bg-light2 pt-4 m-4">
+                <h1 className="py-3 mx-3">{homeTitle.Title[language]}</h1>
+                <p className="mx-3">{homeTitle.Subtitle[language]}</p>
 
                 <Search searchValue='' />
             </div>

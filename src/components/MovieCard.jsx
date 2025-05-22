@@ -6,7 +6,7 @@ import FavoriteIcon from "./FavoriteIcon";
 export default function MovieCard({movie, category}){
     return(
         <>
-            <div className="col-lg-2">
+            <div className="d-flex flex-column col-16 col-md-6 justify-content-center col-lg-2" style={{height: '500px'}}>
                 <Link to={`/moviedetails/${movie.id}/${category}`} className="text-decoration-none text-reset">
                     <CardImage poster_path={movie.poster_path}/>
                 </Link>

@@ -12,7 +12,7 @@ export default function Pages({page, handlePageChange, totalPages, start}){
         handlePageChange(newPage);
     }
     return(
-        <div className="d-flex w-100 justify-content-center align-items-center py-3">
+        <div className="d-flex w-100 justify-content-center align-items-center py-3 flex-wrap">
             <button className={`btn px-3 mx-3 ${page === 1 ? 'd-none' : ''} btn-light2`} onClick={prevPage}><i className="bi bi-chevron-left"></i></button>
             <button className={`btn px-3 mx-3 ${page < 4 ? 'd-none' : 'btn-light2'}`} onClick={() => changePage(1)}>1</button><span className={`${page < 5 ? 'd-none' : ''}`}>...</span>
             {[...Array(5)].map((__, i) =>{

@@ -13,14 +13,14 @@ export default function WatchlistCard({movie,id, category}){
     }
     return(
     <>
-        <div className="d-flex flex-col col-lg-5 shadow-sm mx-3">
+        <div className="d-flex flex-col col-10 col-lg-5 shadow-sm mx-3">
             
-                <div className="card d-flex flex-row p-2 border-0 col-4" onClick={() => navigateToDetails([id, movie.isMovie === true ? 'movies' : 'shows'])} style={{ cursor: 'pointer'}}>
+                <div className="card d-flex flex-row p-2 border-0 col-12 col-lg-4" onClick={() => navigateToDetails([id, movie.isMovie === true ? 'movies' : 'shows'])} style={{ cursor: 'pointer'}}>
                     <CardImage poster_path={movie.poster_path}/>
                 </div>
 
 
-            <div className="col-8 mt-3 ms-3">
+            <div className="col-12 col-lg-8 mt-3 ms-3">
                 <div className="d-flex justify-content-between align-items-evenly">
                 <Link to={`/moviedetails/${id}/${movie.isMovie === true ? 'movies' : 'shows'}`} className="text-decoration-none text-reset">
                     <h6 className="inter-700 fs-1">{movie.title}</h6>

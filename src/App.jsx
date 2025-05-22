@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import { loadFavorites } from './components/store/slices/favorites';
 import Loading from './pages/Loading';
 
+
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/NotFound'));
