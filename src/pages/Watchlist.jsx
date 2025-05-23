@@ -28,8 +28,8 @@ export default function Watchlist() {
                 {   
                     Object.keys(tvItems).length > 0 &&
                     <>
-                    <h2 className="mx-5 my-3 inter-500">TV shows</h2>
-                        <div className="row row-cols-2 g-5 mx-lg-5">
+                    <h2 className="mx-5 py-3 inter-500">TV shows</h2>
+                        <div className="row row-cols-2 mx-2 mx-lg-5">
                             {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === false).map(([key, movie]) => (
                                 <WatchlistCard movie={movie} key={key} category={'shows'} id={key}/>
                             ))}

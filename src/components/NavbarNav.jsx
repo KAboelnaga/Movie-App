@@ -38,7 +38,7 @@ export default function NavbarNav() {
   return (
     <Navbar expand="md" className="bg-yellow position-absolute top-0 w-100" expanded={isActive}>
       <Container fluid>
-        <Navbar.Brand as={Link} to={'/'} className="d-md-mx-5 inter-700" onClick={closeNavbar}>
+        <Navbar.Brand as={Link} to={'/'} className="mx-lg-5 inter-700" onClick={closeNavbar}>
           {navbar.navTitle[language]}
         </Navbar.Brand>
 

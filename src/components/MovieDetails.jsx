@@ -23,11 +23,11 @@ export default function MovieDetails({movie, category}){
         }, [movie]);
     return(
         <>
-            <div className="row m-3 shadow-sm">
-            <div className="col-10 col-lg-2 m-3">
+            <div className="row mx-3 my-5 shadow-sm">
+            <div className="col-12 col-lg-2 my-5 mx-lg-3 ">
                 <CardImage poster_path={movie.poster_path}/>
             </div>
-            <div className="col-10 col-lg-8 mt-3 ms-3">
+            <div className="col-12 col-lg-8 my-lg-5 ms-lg-3">
                 <div className='d-flex w-100 justify-content-between'>
                     <h1 className="inter-700 d-inline">{category === 'movies' ? movie.title : movie.name}</h1>
                     {(category === 'shows' || category === 'movies') && (<FavoriteIcon movie={movie} category={category} id={movie.id}/>)}
@@ -63,14 +63,17 @@ export default function MovieDetails({movie, category}){
                 
 
 
-                {
+                <div className="w-100 d-flex flex-wrap">
+                    {
                     movie?.genres?.map((genre) => (
-                        <span className='position-relative bg-yellow rounded-4 me-4 my-4 p-2 px-4' key={genre.id}>
+                        <h6 className=' d-inline position-relative bg-yellow rounded-4 me-4 my-4 p-2 px-4' key={genre.id}>
                             {genre.name}
-                        </span>
+                        </h6>
                         
                     ))
-                }
+                    }
+                </div>
+                
                 <p className='mt-4'>{movie.overview}</p>
                     <div className="my-3">
                         {category !== 'season' && <h5 className='pt-3 inter-400'>{showSeasonItems.producedBy[language]}</h5>}

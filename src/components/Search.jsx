@@ -30,8 +30,8 @@ export default function Search({searchValue}){
     return(
         <>
         <form className="d-flex align-items-center py-3 mt-5 flex-wrap gap-2 w-100" style={{width: '80vw'}}>
-            <input type="search" name="search" id="search" placeholder={searchItems.placeHolder[language]} value={search} className="bg-white text-black border-1 border-light2 rounded-2 flex-grow-1 ms-3 ms-lg-5 me-3" style={{height:'5vh'}} onChange={handleChange} />  
-            <button className="btn btn-yellow mx-3 " onClick={handleSearch}>{searchItems.searchButton[language]}</button>
+            <input type="search" name="search" id="search" placeholder={searchItems.placeHolder[language]} value={search} className="bg-white text-black border-1 border-light2 rounded-2 flex-grow-1 mx-3 me-3" style={{height:'5vh'}} onChange={handleChange} />  
+            <button className="btn btn-yellow mx-3" onClick={handleSearch}>{searchItems.searchButton[language]}</button>
         </form>
         <h4 className="text-danger inter-500 d-none " ref={emptySearch}>Search is empty!</h4>
         </>

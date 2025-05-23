@@ -7,11 +7,11 @@ const favoritesSlice = createSlice({
   },
   reducers: {
     toggleFavorites: (state, action) => {
-      const {id, poster_path, title, release_date, vote_average, vote_count, overview, isMovie} = action.payload;
+      const {id, ...movieData} = action.payload;
       if(state.movies[id])
         delete state.movies[id];
       else
-        state.movies[id] = {poster_path, title, release_date, vote_average, vote_count, overview, isMovie};
+        state.movies[id] = movieData;
     },
     loadFavorites: (state, action) => {
       state.movies = action.payload || {};
