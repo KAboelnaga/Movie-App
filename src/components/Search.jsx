@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router";
 import { LanguageContext } from "../context/LanguageContext";
 import searchItems from "./JS/search";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 export default function Search({searchValue}){
     const emptySearch = useRef(null);
     const [search,setSearch] = useState('');

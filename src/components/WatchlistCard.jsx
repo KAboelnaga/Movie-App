@@ -2,6 +2,7 @@ import CardImage from "./CardImage";
 import FavoriteIcon from "./FavoriteIcon";
 import Rating from "./Rating";
 import { Link, useNavigate } from "react-router";
+
 export default function WatchlistCard({movie,id, category}){
     const navigate = useNavigate();
     const fullStars = parseInt(Math.floor(movie.vote_average/2));
@@ -12,7 +13,7 @@ export default function WatchlistCard({movie,id, category}){
     }
     return(
     <>
-        <div className="d-flex flex-column flex-lg-row col-12 col-lg-5 shadow-sm">
+        <div initial="hidden" animate="visible" exit="hidden" className="d-flex flex-column flex-lg-row col-12 col-lg-5 shadow-sm">
             
                 <div className="card d-flex flex-row p-2 border-0 col-12 col-lg-4" onClick={() => navigateToDetails([id, movie.isMovie === true ? 'movies' : 'shows'])} style={{ cursor: 'pointer'}}>
                     <CardImage poster_path={movie.poster_path}/>
@@ -40,5 +41,6 @@ export default function WatchlistCard({movie,id, category}){
             </div>
         
         </div>
+
     </>)
 }

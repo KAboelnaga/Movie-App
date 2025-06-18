@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
 import watchListItems from "../components/JS/watchListItems";
+import { Reorder } from "motion/react";
 export default function Watchlist() {
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const {language} = useContext(LanguageContext);
@@ -17,11 +18,14 @@ export default function Watchlist() {
                     Object.keys(movieItems).length > 0 &&
                     <>
                         <h2 className="px-5 py-3 inter-500">Movies</h2>
+                            <Reorder.Group values={movieItems}>
                         <div className="row row-cols-2 mx-2 mx-lg-5">
-                            {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === true).map(([key, movie]) => (
-                                <WatchlistCard movie={movie} key={key} category={'movies'} id={key}/>
+                            {movieItems.map(([key, movie]) => (
+ 
+                                <WatchlistCard movie={movie} key={key} category={'movies'}  id={key}/>
                             ))}
                         </div>
+                            </Reorder.Group>
                     </>
 
                 }
@@ -30,7 +34,7 @@ export default function Watchlist() {
                     <>
                     <h2 className="mx-5 py-3 inter-500">TV shows</h2>
                         <div className="row row-cols-2 mx-2 mx-lg-5">
-                            {Object.entries(favoriteItems).filter(([key, movie]) => movie.isMovie === false).map(([key, movie]) => (
+                            {tvItems.map(([key, movie]) => (
                                 <WatchlistCard movie={movie} key={key} category={'shows'} id={key}/>
                             ))}
                         </div>

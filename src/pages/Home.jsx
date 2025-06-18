@@ -36,7 +36,7 @@ export default function Home(){
         <h2 className="inter-700 my-3 mx-4">{homeSub.nowPlaying[language]}</h2>
         <div className="row row-cols-2 g-4 mx-3">
             {movies.slice(0,18).map(movie => (
-             <MovieCard movie={movie} category={category} key={movie.id}/>
+             <MovieCard movie={movie} category={category} />
             ))
             }
         </div>
