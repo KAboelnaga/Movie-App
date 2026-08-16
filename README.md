@@ -47,7 +47,3 @@ npm run test      # run the Vitest suite
 ## Deployment
 
 Deployed on Vercel. Set `TMDB_API_KEY` and `VITE_IMAGE_BASE_URL` as environment variables in the Vercel project settings (not in `vercel.json`).
-
-## License
-
-[MIT](LICENSE)
