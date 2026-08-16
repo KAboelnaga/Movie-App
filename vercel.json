@@ -1,5 +1,6 @@
 {
     "rewrites": [
+      { "source": "/api/tmdb/:path*", "destination": "/api/tmdb-proxy?path=:path*" },
       { "source": "/((?!api/).*)", "destination": "/" }
     ]
   }
