@@ -1,7 +1,9 @@
 import Lottie from "lottie-react";
 import notfound from '../components/animations/notfound.json'
 import { useNavigate } from "react-router";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 export default function NotFound(){
+    useDocumentTitle('Page not found');
     const navigate = useNavigate();
     const backToHome = () => {
         navigate('/');

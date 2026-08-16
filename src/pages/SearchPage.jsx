@@ -6,6 +6,8 @@ import { useParams } from "react-router";
 import MovieCard from "../components/MovieCard";
 import Pages from "../components/Pages";
 import { staggerContainer } from "../components/motionVariants";
+import Loading from "./Loading";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 export default function SearchPage(){
     const [movies, setMovies] = useState([]);
     const [shows, setShows] = useState([]);
@@ -14,14 +16,17 @@ export default function SearchPage(){
     const [showsPage, setShowsPages] = useState(1);
     const [showsTotalPages, setShowsTotalPages] = useState(1);
     const [error, setError] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const [retryKey, setRetryKey] = useState(0);
     const params = useParams();
     const search = params.search;
     const moviesTitleRef = useRef(null);
     const showsTitleRef = useRef(null);
+    useDocumentTitle(`Search: ${search}`);
 
     useEffect(() =>{
         setError(false);
+        setLoaded(false);
         Promise.all([
         axiosInstance.get(`/search/movie?query=${search}&page=${moviesPage}`),
         axiosInstance.get(`/search/tv?query=${search}&page=${showsPage}`)])
@@ -30,6 +35,7 @@ export default function SearchPage(){
             setShows(shows.data.results);
             setMoviesTotalPages(movies.data.total_pages);
             setShowsTotalPages(shows.data.total_pages);
+            setLoaded(true);
         })
         .catch(err => {
             console.log(err);
@@ -72,24 +78,34 @@ export default function SearchPage(){
                     <button className="btn btn-yellow" onClick={() => setRetryKey(k => k + 1)}>Retry</button>
                 </div>
             }
-            <Motion.div className="row row-cols-2 g-4 mx-3" initial="hidden" animate="visible" variants={staggerContainer}>
-                <h4 ref={moviesTitleRef} className="w-100 inter-500 py-3 px-5">Movies</h4>
-            {
-                movies.map(result => (
-                    <MovieCard movie={result} category={'movies'} key={result.id} />
-                ))
+            {!error && !loaded && <Loading/>}
+            {!error && loaded && movies.length === 0 && shows.length === 0 &&
+                <div className="text-center py-5">
+                    <p className="text-muted">No results found for "{search}".</p>
+                </div>
             }
-            <Pages start={moviesPage - 2} page={moviesPage} totalPages={moviesTotalPages} handlePageChange={changeMoviesPage}/>
-            </Motion.div>
-            <Motion.div className="row row-cols-2 g-4 mx-3" initial="hidden" animate="visible" variants={staggerContainer}>
-                <h4 ref={showsTitleRef} className="w-100 inter-500 py-3 px-5">TV Shows</h4>
-            {
-                shows.map(result => (
-                    <MovieCard movie={result} category={'shows'} key={result.id} />
-                ))
+            {!error && loaded && movies.length > 0 &&
+                <Motion.div className="row row-cols-2 g-4 mx-3" initial="hidden" animate="visible" variants={staggerContainer}>
+                    <h4 ref={moviesTitleRef} className="w-100 inter-500 py-3 px-5">Movies</h4>
+                {
+                    movies.map(result => (
+                        <MovieCard movie={result} category={'movies'} key={result.id} />
+                    ))
+                }
+                <Pages start={moviesPage - 2} page={moviesPage} totalPages={moviesTotalPages} handlePageChange={changeMoviesPage}/>
+                </Motion.div>
             }
-            <Pages start={showsPage - 2} page={showsPage} totalPages={showsTotalPages} handlePageChange={changeShowsPage}/>
-            </Motion.div>
+            {!error && loaded && shows.length > 0 &&
+                <Motion.div className="row row-cols-2 g-4 mx-3" initial="hidden" animate="visible" variants={staggerContainer}>
+                    <h4 ref={showsTitleRef} className="w-100 inter-500 py-3 px-5">TV Shows</h4>
+                {
+                    shows.map(result => (
+                        <MovieCard movie={result} category={'shows'} key={result.id} />
+                    ))
+                }
+                <Pages start={showsPage - 2} page={showsPage} totalPages={showsTotalPages} handlePageChange={changeShowsPage}/>
+                </Motion.div>
+            }
         </div>
     )
 }

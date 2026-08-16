@@ -8,10 +8,6 @@ import '@fontsource/poppins/700.css';
 import {BrowserRouter, Route, Routes, useLocation} from 'react-router';
 import { AnimatePresence } from 'motion/react';
 import { lazy, Suspense } from 'react';
-import Watchlist from './pages/Watchlist';
-import MovieDetailsPage from './pages/MovieDetailsPage';
-import SearchPage from './pages/SearchPage';
-import ActorPage from './pages/ActorPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loadFavorites } from './components/store/slices/favorites';
@@ -22,6 +18,10 @@ import PageTransition from './components/PageTransition';
 const NavbarNav = lazy(() => import('./components/NavbarNav'));
 const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Watchlist = lazy(() => import('./pages/Watchlist'));
+const MovieDetailsPage = lazy(() => import('./pages/MovieDetailsPage'));
+const SearchPage = lazy(() => import('./pages/SearchPage'));
+const ActorPage = lazy(() => import('./pages/ActorPage'));
 
 
 function AnimatedRoutes() {

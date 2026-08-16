@@ -5,9 +5,11 @@ import { useContext } from "react";
 import { LanguageContext } from "../context/LanguageContext";
 import watchListItems from "../components/JS/watchListItems";
 import { AnimatePresence, motion as Motion } from "motion/react";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 export default function Watchlist() {
     const favoriteItems = useSelector((state) => state.favorites.movies);
     const {language} = useContext(LanguageContext);
+    useDocumentTitle('Watchlist');
     const movieItems = Object.entries(favoriteItems).filter(([, movie]) => movie.isMovie === true);
     const tvItems = Object.entries(favoriteItems).filter(([, movie]) => movie.isMovie === false);
     return (

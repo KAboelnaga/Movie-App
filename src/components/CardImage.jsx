@@ -5,7 +5,7 @@ export default function CardImage({poster_path}){
         <>
             {poster_path &&
             <div className="card border-0">
-                <Motion.img src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${poster_path}`} className="card-img-fluid rounded-4" alt="..." initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.4}}/>
+                <Motion.img src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${poster_path}`} className="card-img-fluid rounded-4" alt="..." loading="lazy" initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.4}}/>
             </div>
             }
             {!poster_path &&

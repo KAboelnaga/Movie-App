@@ -8,6 +8,8 @@ import {LanguageContext} from '../context/LanguageContext';
 import MovieDetails from '../components/MovieDetails';
 import movieDetailsItems from '../components/JS/movieDetails';
 import { staggerContainer } from '../components/motionVariants';
+import Loading from './Loading';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 export default function MovieDetailsPage(){
     const [movie, setmovie] = useState(null);
     const [recommendation, setRecommendation] = useState(null);
@@ -16,6 +18,7 @@ export default function MovieDetailsPage(){
     const [retryKey, setRetryKey] = useState(0);
     const { id, category } = useParams();
     const {language} = useContext(LanguageContext);
+    useDocumentTitle(movie ? (category === 'movies' ? movie.title : movie.name) : null);
     useEffect(() => {
         setError(false);
         setExternalRatings(null);
@@ -59,7 +62,7 @@ export default function MovieDetailsPage(){
             </div>
         )
     if(!movie)
-        return(<h2>loading</h2>)
+        return(<Loading/>)
     return(
         <>
             <MovieDetails movie={movie} category={category} externalRatings={externalRatings}/>

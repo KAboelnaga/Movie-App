@@ -8,6 +8,7 @@ import { CategoryContext } from "../context/CategoryContext";
 import Pages from "../components/Pages";
 import homeSub from "../components/JS/homeSubtitle";
 import { staggerContainer } from "../components/motionVariants";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 export default function Home(){
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState([]);
@@ -16,6 +17,7 @@ export default function Home(){
     const [retryKey, setRetryKey] = useState(0);
     const {language} = useContext(LanguageContext);
     const {category} = useContext(CategoryContext);
+    useDocumentTitle(null);
     useEffect(() =>{
         setError(false);
         axiosInstance.get(`${category === 'movies' ? '/movie/now_playing' : '/tv/popular'}?language=${language}&page=${page}`)

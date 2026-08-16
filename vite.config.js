@@ -64,6 +64,19 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react(), tmdbDevProxy(env.TMDB_API_KEY), omdbDevProxy(env.OMDB_API_KEY)],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'react-router'],
+            'vendor-bootstrap': ['react-bootstrap', 'bootstrap'],
+            'vendor-motion': ['motion'],
+            'vendor-redux': ['@reduxjs/toolkit', 'react-redux'],
+            'vendor-lottie': ['lottie-react'],
+          },
+        },
+      },
+    },
     test: {
       environment: 'jsdom',
       setupFiles: './src/setupTests.js',

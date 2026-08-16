@@ -70,7 +70,7 @@ export default function MovieDetails({movie, category, externalRatings}){
                         {category !== 'season' && <h5 className='pt-3 inter-400'>{showSeasonItems.producedBy[language]}</h5>}
                         {
                             movie?.production_companies?.map((company) =>(
-                                <img src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${company.logo_path}`} className="card-img-fluid rounded-1 me-5 my-3" alt={company.name} key={company.id} style={{width: '200px'}}/>
+                                <img src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${company.logo_path}`} className="card-img-fluid rounded-1 me-5 my-3" alt={company.name} key={company.id} loading="lazy" style={{width: '200px'}}/>
                             ))
                         }
                     </div>

@@ -8,6 +8,8 @@ import { LanguageContext } from '../context/LanguageContext';
 import actorItems from '../components/JS/actor';
 import navbar from '../components/JS/navbar';
 import { staggerContainer } from '../components/motionVariants';
+import Loading from './Loading';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 export default function ActorPage(){
     const { id } = useParams();
@@ -15,6 +17,7 @@ export default function ActorPage(){
     const [person, setPerson] = useState(null);
     const [error, setError] = useState(false);
     const [retryKey, setRetryKey] = useState(0);
+    useDocumentTitle(person?.name ?? null);
 
     useEffect(() => {
         setError(false);
@@ -36,11 +39,20 @@ export default function ActorPage(){
         );
 
     if (!person)
-        return (<h2>loading</h2>);
+        return (<Loading/>);
 
+    // combined_credits can list the same title more than once (e.g. an actor
+    // playing multiple roles across a show's run), so dedupe by media type + id.
+    const seenCredits = new Set();
     const credits = (person.combined_credits?.cast || [])
         .filter(credit => credit.poster_path)
-        .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+        .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+        .filter(credit => {
+            const key = `${credit.media_type}-${credit.id}`;
+            if (seenCredits.has(key)) return false;
+            seenCredits.add(key);
+            return true;
+        });
     const movieCredits = credits.filter(credit => credit.media_type === 'movie');
     const tvCredits = credits.filter(credit => credit.media_type === 'tv');
 
