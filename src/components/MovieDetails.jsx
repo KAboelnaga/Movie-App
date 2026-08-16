@@ -1,26 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import CardImage from "./CardImage";
-import Rating from "./Rating";
+import Ratings from "./Ratings";
 import MoviesDurationLanguage from "./MovieDurationLanguages";
 import FavoriteIcon from "./FavoriteIcon";
+import MovieTrailer from "./MovieTrailer";
+import Cast from "./Cast";
 import showSeasonItems from "./JS/showSeasonsItems";
 import { LanguageContext } from "../context/LanguageContext";
-export default function MovieDetails({movie, category}){
+export default function MovieDetails({movie, category, externalRatings}){
     const {language} = useContext(LanguageContext);
-    const [fullStars, setFullStars] = useState(0);
-    const [halfStars, setHalfStars] = useState(0);
-    const [emptyStars, setEmptyStars] = useState(5);
-    useEffect(() => {
-            if (movie && movie.vote_average !== undefined) {
-                const rating = movie.vote_average / 2;
-                const full = Math.floor(rating);
-                const half = rating % 1 >= 0.5 ? 1 : 0;
-                const empty = 5 - full - half;
-                setFullStars(full);
-                setHalfStars(half);
-                setEmptyStars(empty);
-            }
-        }, [movie]);
     return(
         <>
             <div className="row mx-3 my-5 shadow-sm">
@@ -37,12 +25,15 @@ export default function MovieDetails({movie, category}){
                 {category === 'shows' && <p className="text-muted" style={{fontSize:'12px'}}>{(movie.first_air_date).split('-',1)} - {(movie.last_air_date)?.split('-',1)}</p>}
                 {category === 'season' && <p className="text-muted" style={{fontSize:'12px'}}>First Air Date: {(movie.air_date)}</p>}
 
-                {movie.vote_average > 0 && 
-                    <>
-                        <Rating fullStars={fullStars} halfStars={halfStars} emptyStars={emptyStars} />
-                        <span className="mx-3 ">{movie.vote_count}</span>
-                    </>
-                }
+                <Ratings
+                    tmdb={movie.vote_average}
+                    voteCount={movie.vote_count}
+                    imdb={externalRatings?.imdb}
+                    imdbVotes={externalRatings?.imdbVotes}
+                    rottenTomatoes={externalRatings?.rottenTomatoes}
+                />
+
+                {(category === 'movies' || category === 'shows') && <div><MovieTrailer videos={movie.videos?.results}/></div>}
 
                 {
                 (category === 'shows' && movie.number_of_seasons > 0) &&
@@ -85,6 +76,8 @@ export default function MovieDetails({movie, category}){
                     </div>
                 </div>
                 </div>
+                {(category === 'movies' || category === 'shows') && <hr className="mx-3"/>}
+                {(category === 'movies' || category === 'shows') && <Cast cast={movie.credits?.cast}/>}
         </>
     )
 }

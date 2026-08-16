@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { motion as Motion } from "motion/react";
 import { LanguageContext } from '../context/LanguageContext';
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import 'hamburgers/dist/hamburgers.css';
 import navbar from "./JS/navbar";
 import ThemeToggle from "./ThemeToggle";
 import { ThemeContext } from "../context/ThemeContext";
+import { fadeInUp, staggerContainer, tapScale } from "./motionVariants";
 
 export default function NavbarNav() {
     const [isActive, setIsActive] = useState(false);
@@ -66,22 +68,26 @@ export default function NavbarNav() {
       }}>
           <Nav className="d-lg-flex align-items-lg-center">
             {location.pathname === '/' && (
-              <>
-                <Nav.Item
-                  onClick={() => {changeCategory('movies'); setIsActive(false);}}
-                  className={`mx-3 my-2 ${category === 'movies' ? 'inter-700 fs-4' : 'inter-400'}`}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {navbar.navMovies[language]}
-                </Nav.Item>
-                <Nav.Item
-                  onClick={() => {changeCategory('shows'); setIsActive(false);}}
-                  className={`mx-3 my-2 ${category === 'shows' ? 'inter-700 fs-4' : 'inter-400'}`}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {navbar.navShows[language]}
-                </Nav.Item>
-              </>
+              <Motion.div className="d-flex" initial="hidden" animate="visible" variants={staggerContainer}>
+                <Motion.div variants={fadeInUp} whileHover={{ scale: 1.08 }}>
+                  <Nav.Item
+                    onClick={() => {changeCategory('movies'); setIsActive(false);}}
+                    className={`mx-3 my-2 ${category === 'movies' ? 'inter-700 fs-4' : 'inter-400'}`}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {navbar.navMovies[language]}
+                  </Nav.Item>
+                </Motion.div>
+                <Motion.div variants={fadeInUp} whileHover={{ scale: 1.08 }}>
+                  <Nav.Item
+                    onClick={() => {changeCategory('shows'); setIsActive(false);}}
+                    className={`mx-3 my-2 ${category === 'shows' ? 'inter-700 fs-4' : 'inter-400'}`}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {navbar.navShows[language]}
+                  </Nav.Item>
+                </Motion.div>
+              </Motion.div>
             )}
           </Nav>
 
@@ -95,9 +101,9 @@ export default function NavbarNav() {
 
             <span className="nav-item align-items-center justify-content-end">
               <Link className="nav-link p-0" to="/watchlist">
-                <button className={`btn border-0 text-decoration-none text-${textColor}`} onClick={() => setIsActive(false)}>
+                <Motion.button className={`btn border-0 text-decoration-none text-${textColor}`} onClick={() => setIsActive(false)} {...tapScale}>
                   <i className="bi bi-heart-fill fs-3"></i>{navbar.watchList[language]}
-                </button>
+                </Motion.button>
                 <span className={`d-inline-flex align-items-start bg-light2 px-2 text-${textColor} rounded-5 me-1`} style={{ fontSize: '15px' }}>
                   {Object.keys(favoriteItems).length > 0 && Object.keys(favoriteItems).length}
                 </span>

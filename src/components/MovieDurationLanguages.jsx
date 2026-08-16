@@ -4,7 +4,6 @@ import { LanguageContext } from "../context/LanguageContext"
 
 export default function MoviesDurationLanguage({runtime, spoken_languages}){
     const { language = 'en' } = useContext(LanguageContext);
-    console.log(spoken_languages);
     return(
         <div className="d-block py-3">                      
             <p className='d-inline inter-600'>{movieDurationItems?.duration?.[language]}</p>
