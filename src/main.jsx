@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import store from './components/store/store.js';
 import ThemeProvider from './context/ThemeContext.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import { Analytics } from '@vercel/analytics/react';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <CategoryProvider>
           <Provider store={store}>
             <App />
+            <Analytics />
           </Provider>
         </CategoryProvider>
         </ThemeProvider>
